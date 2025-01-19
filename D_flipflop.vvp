@@ -1,0 +1,59 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision - 9;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_009D3918 .scope module, "D_flipflop_tb" "D_flipflop_tb" 2 4;
+ .timescale -9 -9;
+v009DEE70_0 .var "CLK", 0 0;
+v009DEEC8_0 .var "D", 0 0;
+v009DEF20_0 .net "Q", 0 0, v009D3370_0; 1 drivers
+S_009D3290 .scope module, "uut" "D_flipflop" 2 8, 3 1, S_009D3918;
+ .timescale -9 -9;
+v009D5228_0 .net "CLK", 0 0, v009DEE70_0; 1 drivers
+v009D3318_0 .net "D", 0 0, v009DEEC8_0; 1 drivers
+v009D3370_0 .var "Q", 0 0;
+E_009D7A58 .event posedge, v009D5228_0;
+    .scope S_009D3290;
+T_0 ;
+    %wait E_009D7A58;
+    %load/v 8, v009D3318_0, 1;
+    %set/v v009D3370_0, 8, 1;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_009D3918;
+T_1 ;
+    %set/v v009DEEC8_0, 0, 1;
+    %end;
+    .thread T_1;
+    .scope S_009D3918;
+T_2 ;
+    %set/v v009DEE70_0, 0, 1;
+    %end;
+    .thread T_2;
+    .scope S_009D3918;
+T_3 ;
+    %load/v 8, v009DEE70_0, 1;
+    %inv 8, 1;
+    %set/v v009DEE70_0, 8, 1;
+    %delay 10, 0;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_009D3918;
+T_4 ;
+    %vpi_call 2 16 "$dumpfile", "D_flipflop_tb.vcd";
+    %vpi_call 2 17 "$dumpvars", 1'sb0, S_009D3918;
+    %set/v v009DEEC8_0, 1, 1;
+    %delay 40, 0;
+    %set/v v009DEEC8_0, 0, 1;
+    %delay 40, 0;
+    %vpi_call 2 20 "$finish";
+    %end;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    ".\D_flipflop_tb.v";
+    "./D_flipflop.v";
